@@ -55,8 +55,23 @@ class Window(QtGui.QMainWindow):
 		checkBox.toggle()
 		checkBox.stateChanged.connect(self.enlarge_window)
 
+		self.progress = QtGui.QProgressBar(self)
+		self.progress.setGeometry(200,80,250,20)
+
+		self.btn = QtGui.QPushButton("Download", self)
+		self.btn.move(200,120)
+		self.btn.clicked.connect(self.download)
+
 
 		self.show()
+
+
+	def download(self):
+		self.completed = 0
+
+		while self.completed < 100:
+			self.completed += 0.0001
+			self.progress.setValue(self.completed)
 
 
 	def enlarge_window(self, state):
