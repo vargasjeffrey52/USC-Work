@@ -9,6 +9,29 @@ class Window(QtGui.QMainWindow):
 		self.setGeometry(50, 50, 500, 300)
 		self.setWindowTitle("PyQt tuts!")
 		self.setWindowIcon(QtGui.QIcon("pythonLogo.png"))
+
+		# creates a action to be used in the file menu
+		extractAction = QtGui.QAction("&Get out the CHOPPAH! ! ! ! !", self)
+		extractAction.setShortcut("Ctrl+q")
+		extractAction.setStatusTip("Leave The App")
+		extractAction.triggered.connect(self.close_application)
+
+		# created my own action that does nothing right now
+		exAct = QtGui.QAction("what",self)
+
+
+		#self.statusBar()
+
+		mainMenu = self.menuBar()
+		fileMenu = mainMenu.addMenu('&File')
+		fileMenu.addAction(extractAction)
+		
+
+		editMenu = mainMenu.addMenu('&Edit')
+		editMenu.addAction(exAct)
+
+
+
 		self.home()
 
 	def home(self):
@@ -16,7 +39,7 @@ class Window(QtGui.QMainWindow):
 		btn.clicked.connect(self.close_application)
 
 		btn.resize(btn.minimumSizeHint())
-		btn.move(0,0)
+		btn.move(100,100)
 
 		self.show()
 
