@@ -19,14 +19,13 @@ class Window(QtGui.QMainWindow):
 		# created my own action that does nothing right now
 		exAct = QtGui.QAction("what",self)
 
+		# reserves a horizontal bar at the bottom as the status bar
+		self.statusBar()
 
-		#self.statusBar()
-
+		# display horizontal menubar with specified dropdown menus for action
 		mainMenu = self.menuBar()
 		fileMenu = mainMenu.addMenu('&File')
 		fileMenu.addAction(extractAction)
-		
-
 		editMenu = mainMenu.addMenu('&Edit')
 		editMenu.addAction(exAct)
 
@@ -40,6 +39,14 @@ class Window(QtGui.QMainWindow):
 
 		btn.resize(btn.minimumSizeHint())
 		btn.move(100,100)
+
+		# Adding the action for a tools bar that belongs to the Home window
+		extractAction = QtGui.QAction(QtGui.QIcon('pokeBall.png'), 'Flee the seen', self)
+		extractAction.triggered.connect(self.close_application)
+
+		# displaying the tools menu that belongs to the homes window
+		self.toolBar = self.addToolBar('Extraction')
+		self.toolBar.addAction(extractAction)
 
 		self.show()
 
