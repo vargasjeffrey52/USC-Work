@@ -50,22 +50,51 @@ class Window(QtGui.QMainWindow):
 		self.toolBar = self.addToolBar('Extraction')
 		self.toolBar.addAction(extractAction)
 
+		# adding check box to window
 		checkBox = QtGui.QCheckBox('Enlarge Window', self)
 		checkBox.move(100, 25)
 		checkBox.toggle()
 		checkBox.stateChanged.connect(self.enlarge_window)
 
+		# adding progress bar
 		self.progress = QtGui.QProgressBar(self)
 		self.progress.setGeometry(200,80,250,20)
 
+		# adding push button for progress bar
 		self.btn = QtGui.QPushButton("Download", self)
 		self.btn.move(200,120)
 		self.btn.clicked.connect(self.download)
 
 
+		# creating a lable for the dorp down menu
+		print(self.style().objectName())
+		self.styleChoice = QtGui.QLabel("Windows", self)
+
+		# creating a drop down menu that contains the following text 
+		comboBox = QtGui.QComboBox(self)
+		comboBox.addItem("motif")
+		comboBox.addItem("Windows")
+		comboBox.addItem("cde")
+		comboBox.addItem("Plastique")
+		comboBox.addItem("Cleanlooks")
+		comboBox.addItem("windowsvista")
+
+		# moving the drop down menu and drop down menu label
+		comboBox.move(50,250)
+		self.styleChoice.move(50,210)
+		# activates the item in the combobox by connecting it 
+		comboBox.activated[str].connect(self.style_choice)
+
 		self.show()
 
 
+	# method that selects the gui style
+	def style_choice(self,text):
+		self.styleChoice.setText(text)
+		QtGui.QApplication.setStyle(QtGui.QStyleFactory.create(text))
+
+
+	# method that updates progress bar 
 	def download(self):
 		self.completed = 0
 
@@ -73,7 +102,7 @@ class Window(QtGui.QMainWindow):
 			self.completed += 0.0001
 			self.progress.setValue(self.completed)
 
-
+	# updates the checkbox state and enlarges window
 	def enlarge_window(self, state):
 		if state == QtCore.Qt.Checked:
 			self.setGeometry(50, 50, 1000, 600)
