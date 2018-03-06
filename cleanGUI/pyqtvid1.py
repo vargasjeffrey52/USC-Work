@@ -58,10 +58,18 @@ class Window(QtGui.QMainWindow):
 		self.toolBar.addAction(fontchoice)
 
 
+		color = QtGui.QColor(0, 0, 0)
+		fontcolor = QtGui.QAction('Font bg Color', self)
+		fontcolor.triggered.connect(self.color_picker)
+
+		self.toolBar.addAction(fontcolor)
+
+
+
 		# adding check box to window
 		checkBox = QtGui.QCheckBox('Enlarge Window', self)
-		checkBox.move(100, 25)
-		checkBox.toggle()
+		checkBox.move(300, 25)
+		#checkBox.toggle()
 		checkBox.stateChanged.connect(self.enlarge_window)
 
 		# adding progress bar
@@ -93,7 +101,15 @@ class Window(QtGui.QMainWindow):
 		# activates the item in the combobox by connecting it 
 		comboBox.activated[str].connect(self.style_choice)
 
+		cal = QtGui.QCalendarWidget(self)
+		cal.move(500,200)
+		cal.resize(300,300)
+
 		self.show()
+
+	def color_picker(self):
+		color = QtGui.QColorDialog.getColor()
+		self.styleChoice.setStyleSheet("QWidget { background-color: %s}" % color.name())
 
 	def fontchoice(self):
 		font, valid = QtGui.QFontDialog.getFont()
@@ -117,7 +133,7 @@ class Window(QtGui.QMainWindow):
 	# updates the checkbox state and enlarges window
 	def enlarge_window(self, state):
 		if state == QtCore.Qt.Checked:
-			self.setGeometry(50, 50, 1000, 600)
+			self.setGeometry(50, 50, 1000, 10000)
 		else:
 			self.setGeometry(50, 50, 500, 300)
 
