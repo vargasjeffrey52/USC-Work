@@ -20,6 +20,11 @@ class Window(QtGui.QMainWindow):
 		# created my own action that does nothing right now
 		exAct = QtGui.QAction("what",self)
 
+		openEditor = QtGui.QAction("&Editor", self)
+		openEditor.setShortcut("Ctrl+e")
+		openEditor.setStatusTip('Open Editor')
+		openEditor.triggered.connect(self.editor)
+
 		# reserves a horizontal bar at the bottom as the status bar
 		self.statusBar()
 
@@ -31,8 +36,16 @@ class Window(QtGui.QMainWindow):
 		editMenu.addAction(exAct)
 
 
+		editorMenu = mainMenu.addMenu("&Editor")
+		editorMenu.addAction(openEditor)
+
 
 		self.home()
+
+
+	def editor(self):
+		self.textEdit = QtGui.QTextEdit()
+		self.setCentralWidget(self.textEdit)
 
 	def home(self):
 		btn = QtGui.QPushButton('quit', self)
