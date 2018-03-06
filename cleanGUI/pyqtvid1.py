@@ -50,6 +50,14 @@ class Window(QtGui.QMainWindow):
 		self.toolBar = self.addToolBar('Extraction')
 		self.toolBar.addAction(extractAction)
 
+
+		fontchoice = QtGui.QAction('Font', self)
+		fontchoice.triggered.connect(self.fontchoice)
+
+		#self.toolBar = self.addToolBar('Font')
+		self.toolBar.addAction(fontchoice)
+
+
 		# adding check box to window
 		checkBox = QtGui.QCheckBox('Enlarge Window', self)
 		checkBox.move(100, 25)
@@ -87,6 +95,10 @@ class Window(QtGui.QMainWindow):
 
 		self.show()
 
+	def fontchoice(self):
+		font, valid = QtGui.QFontDialog.getFont()
+		if valid:
+			self.styleChoice.setFont(font)
 
 	# method that selects the gui style
 	def style_choice(self,text):
